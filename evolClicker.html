@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Evolution Clicker</title>
+	<link rel="stylesheet" type="text/css" href="interface.css" />
+</head>
+<body onload="load(); toggle_visibility('tabShop');">
+	<div id="section-left">
+		<div id="click-area" onclick="clickEarning()">
+			<p id="click-area-text" class="prevent-select">
+				<span>rocks: <span id="rocks">0</span></span><br/>
+				<span>Clicked <span id="click-count">0</span> times!</span><br/>
+				<span>Click value: <span id="click-value">1</span></span>
+			</p>
+		</div>
+	</div>
+	<div id="section-right">
+		<div id="tab-button">
+			<img src="images/shop.png" id="tab-shop-btn" onclick="toggle_visibility('tabShop')"><img src="images/upgrade.png" id="tab-upgrade-btn" onclick="toggle_visibility('tabUpgrade')">
+		</div>
+		<div id="tab-shop">
+			<div id="tab-shop-content" class="hide-scrollbar">
+				
+			</div>
+			<div id="total-prod">
+				Total prod : <span></span>/s
+			</div>
+		</div>
+		<div id="tab-upgrade">
+			<div id="tab-upgrade-content" class="hide-scrollbar">
+			</div>
+		</div>
+
+		<footer>
+			<button onclick="load()">Load</button>
+			<button onclick="save()">Save</button>
+			<button onclick="reset()">Reset</button>
+			<br />
+			Beta 0.0.1
+			</footer>
+			<script type="text/javascript" src="main.js"></script>
+			<script type="text/javascript" src="refresh.js"></script>
+			<script type="text/javascript" src="storage.js"></script>
+			<script type="text/javascript" src="shop.js"></script>
+			<script type="text/javascript" src="upgrade.js"></script>
+		</body>
+	</html>
+

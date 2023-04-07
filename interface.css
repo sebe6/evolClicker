@@ -1,0 +1,157 @@
+body{
+    margin:0;
+}
+
+#click {
+	position: absolute;
+	top: 35%;
+	height: 100%;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	left: 40%;
+	right: 300px;
+}
+
+
+#section-left {
+	position: absolute;
+	width: 67vw;
+	height: 100vh;
+	padding: 10px;
+    box-sizing: border-box;
+	background-color: #f2f2f2;
+}
+
+#section-right {
+	float: right;
+	width: 33vw;
+    height: 100vh;
+	background-color: #f2f2f2;
+}
+
+#tab-shop-btn, #tab-upgrade-btn {
+    cursor: pointer;
+    width: 50%;
+}
+
+#tab-button {
+	height: calc(8.25vw - 2px);
+}
+
+#tab-shop-content, #tab-upgrade-content {
+    border: 2px solid #3F67FB;
+    box-sizing: border-box;
+	overflow-x: scroll;
+}
+
+#tab-shop-content {
+	height: calc(100vh - (8.25vw - 2px) - 42px);
+}
+
+#tab-upgrade-content {
+	height: calc(100vh - (8.25vw - 2px));
+}
+
+#total-prod {
+	padding: 10px;
+	box-sizing: content-box;
+	border: 2px solid blue;
+}
+
+#tab-shop {
+	display: none;
+}
+
+#tab-upgrade {
+	display: none;
+}
+
+#click-area {
+	height: 33vh;
+	width: 33vh;
+    max-width: 33vw;
+	top: 33vh;
+    cursor: pointer;
+	background: url('images/stone.png') no-repeat center;
+	background-size: contain;
+	position: fixed;
+    display: flex;
+}
+
+#click-area-text{
+    height: 10vh;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#prod {
+	margin-top: 10px;
+}
+
+.shopItem, .upgradeItem {
+	border: 1px solid grey;
+	max-height: 100px;
+	height: 15vh;
+	display: flex;
+	background-color: white;
+}
+
+.shopItem p.name, .upgradeItem p.name {
+	margin: 10px 0;
+}
+
+.shopItem .itemImage, .upgradeItem .upgradeImage {
+	max-height: 100px;
+	height: 15vh;
+}
+
+.shopItem .shopItemText, .upgradeItem .upgradeItemText {
+	width: calc(100% - 15vh);
+	max-width: calc(100% - 100px);
+	display: flex;
+	flex-direction: column;
+	padding: 0 10%;
+}
+
+.shopItem .shopItemValue, .upgradeItem .upgradeItemValue {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.shopItem .shopItemValue p, .upgradeItem .upgradeItemValue p {
+	display: flex;
+	align-items: center;
+}
+
+.shopItem .shopItemValue .amount, .upgradeItem .upgradeItemValue .amount {
+	display: flex;
+}
+
+.not-buyable {
+	filter: brightness(0.5);
+}
+
+.prevent-select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.hide-scrollbar::-webkit-scrollbar{
+	display: none;
+}
+
+.hide-scrollbar {
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
+}
