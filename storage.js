@@ -6,13 +6,13 @@ function load() {
     rocks = JSON.parse(localStorage.getItem('rocks'));
     clickCount = JSON.parse(localStorage.getItem('clickCount'));
     localStorage.getItem('language', language);
-
+    
     for (const [key] of Object.entries(shop)) {
       if (localStorage.getItem(`shop_${key}_amount`) !== null) {
         eval(`shop['${key}']['amount'] = JSON.parse(localStorage.getItem('shop_${key}_amount'))`);
       }
     };
-  
+    
     for (const [key, value] of Object.entries(upgrades)) {
       for (let i = 0; i <= value['enabled'].length-1; i++) {
         if (localStorage.getItem(`upgrades_${key}_${i}`) !== null) {
@@ -20,6 +20,8 @@ function load() {
         }
       }
     };
+
+    loadHTMLElement();
     
     //earning from offline
     if (typeof localStorage.getItem('saveDate') !== 'undefined'){ 
@@ -28,6 +30,7 @@ function load() {
       current = Date.parse(current);
       diff = (current - tt)/1000;
       offEarn = totalProd()*diff/2;
+      console.log('a');
       if(isNaN(offEarn)!==true){
         productionEarning(offEarn);
         if(diff>60){
@@ -35,8 +38,9 @@ function load() {
         }
       }
     }
+  }else{
+    loadHTMLElement();
   }
-    refreshHTMLElement();
 }
 
 function save() {

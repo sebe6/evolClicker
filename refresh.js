@@ -1,32 +1,47 @@
+function loadHTMLElement() {
+	document.getElementById('rocks').innerHTML = formatNumber(rocks);
+	document.getElementById('click-count').innerHTML = clickCount > 0 ? formatNumber(clickCount) : 0;
+	document.getElementById('click-value').innerHTML = formatNumber(clickValue());
+
+	const tabShopContentHtml = document.querySelector('#tab-shop-content');
+	tabShopContentHtml.innerHTML = '';
+	for (const [key, value] of Object.entries(shop)) {	  
+		const shopItemHtml = createShopItemHtml(key);
+		
+		tabShopContentHtml.appendChild(shopItemHtml);
+		// if(shop[key]['amount'] == 0){
+		// 	break;
+		// }
+	}
+
+	const tabUpgradesHtml = document.querySelector('#tab-upgrade-content');
+	tabUpgradesHtml.innerHTML = '';
+	for (const [key, value] of Object.entries(upgrades)) {
+		let ownedAmount 
+		ownedAmount = shop[key]['amount']
+		for (let i = 0; i <= value['require'].length-1; i++) {
+			// if(value['enabled'][i]) continue;
+			// if(shop[key]['amount'] >= value['require'][i]){
+				const upgradeItemHtml = createUpgradeItemHtml(key, i);
+		
+				tabUpgradesHtml.appendChild(upgradeItemHtml);
+			// }
+		}
+	}
+}
+
 function refreshHTMLElement() {
   document.getElementById('rocks').innerHTML = formatNumber(rocks);
   document.getElementById('click-count').innerHTML = clickCount > 0 ? formatNumber(clickCount) : 0;
   document.getElementById('click-value').innerHTML = formatNumber(clickValue());
 
-  const tabShopContentHtml = document.querySelector('#tab-shop-content');
-  tabShopContentHtml.innerHTML = '';
   for (const [key, value] of Object.entries(shop)) {	  
-	  //build shop div
-	  const shopItemHtml = createShopItemHtml(key);
-	  
-	  tabShopContentHtml.appendChild(shopItemHtml);
-	  if(shop[key]['amount'] == 0){
-		break;
-	  }
+	updateShopItemHtml(key)
   }
 
-  const tabUpgradesHtml = document.querySelector('#tab-upgrade-content');
-  tabUpgradesHtml.innerHTML = '';
   for (const [key, value] of Object.entries(upgrades)) {
-	let ownedAmount 
-	ownedAmount = shop[key]['amount']
 	for (let i = 0; i <= value['require'].length-1; i++) {
-		if(value['enabled'][i]) continue;
-		if(shop[key]['amount'] >= value['require'][i]){
-			const upgradeItemHtml = createUpgradeItemHtml(key, i);
-	
-			tabUpgradesHtml.appendChild(upgradeItemHtml);
-		}
+			updateUpgradeItemHtml(key, i);
 	}
   }
 }
@@ -36,11 +51,13 @@ function createShopItemHtml(key){
 	const costNextItem = getCostNextItem(key);
 
 	const shopItemHtml = document.createElement('div');
+	shopItemHtml.classList.add('shopItem', 'prevent-select', 'hidden');
 	if(costNextItem > rocks)
-		shopItemHtml.classList.add('shopItem', 'prevent-select', 'not-buyable');
-	else
-		shopItemHtml.classList.add('shopItem', 'prevent-select');
-	shopItemHtml.setAttribute('id', key);
+		shopItemHtml.classList.add('not-buyable');
+	if(shop[key]['amount'] == 0)
+		shopItemHtml.classList.remove('hidden')
+	
+	shopItemHtml.setAttribute('id', 'shop_' + key);
 	shopItemHtml.addEventListener('click', () => {buyItem(key)});
 
 	const imageHtml = document.createElement('img');
@@ -63,15 +80,12 @@ function createShopItemHtml(key){
 	prodHtml.innerHTML = formatNumber((value['production'] * getTotalMultiplier(key) * getTotalSpecial(key)) * value['amount']) + '/s';
 	prodHtml.innerHTML += ' (' + formatNumber((value['production']) * getTotalMultiplier(key) * getTotalSpecial(key)) + '/s/u)';
 	const costHtml = document.createElement('p');
-	costHtml.classList.add('cost');
+	costHtml.classList.add('cost', 'stone-icon-after');
 	costHtml.innerHTML = formatNumber(costNextItem);
-	const rocksIconHtml = document.createElement('img');
-	rocksIconHtml.src = 'images/stoneIcon.png'
 	
 	shopItemTextHtml.appendChild(nameHtml);
 	shopItemValuesHtml.appendChild(amountHtml);
 	shopItemValuesHtml.appendChild(prodHtml);
-	costHtml.appendChild(rocksIconHtml);
 	shopItemValuesHtml.appendChild(costHtml);
 	
 	shopItemHtml.appendChild(imageHtml);
@@ -80,15 +94,35 @@ function createShopItemHtml(key){
 	return shopItemHtml;
 }
 
+function updateShopItemHtml(key){
+	const value = shop[key];
+	const costNextItem = getCostNextItem(key);
+	let shopItemHtml = document.querySelector('#shop_' + key);
+	
+	if(costNextItem > rocks)
+		shopItemHtml.classList.add('not-buyable');
+	else
+		shopItemHtml.classList.remove('not-buyable');
+	
+	if(shop[key]['amount'] == 0)
+		shopItemHtml.classList.remove('hidden')
+	
+	let shopItemValueHtml = shopItemHtml.querySelector('.shopItemValue')
+	shopItemValueHtml.querySelector('.amount').innerHTML = 'Owned : ' + (value['amount'] || 0);
+	var prodHtml = formatNumber((value['production'] * getTotalMultiplier(key) * getTotalSpecial(key)) * value['amount']) + '/s';
+	prodHtml += ' (' + formatNumber((value['production']) * getTotalMultiplier(key) * getTotalSpecial(key)) + '/s/u)';
+	shopItemValueHtml.querySelector('.prod').innerHTML = prodHtml;
+	shopItemValueHtml.querySelector('.cost').innerHTML = formatNumber(costNextItem);
+}
+
 function createUpgradeItemHtml(key, index){
 	const value = upgrades[key];
 
 	const upgradesItemHtml = document.createElement('div');
+	upgradesItemHtml.classList.add('upgradeItem', 'prevent-select', 'hidden');
 	if(value['cost'][index] > rocks)
-		upgradesItemHtml.classList.add('upgradeItem', 'prevent-select', 'not-buyable');
-	else
-		upgradesItemHtml.classList.add('upgradeItem', 'prevent-select');
-	upgradesItemHtml.setAttribute('id', key + '_' + index);
+		upgradesItemHtml.classList.add('not-buyable');
+	upgradesItemHtml.setAttribute('id', 'upgrade_' + key + '_' + index);
 	upgradesItemHtml.addEventListener('click', () => {buyUpgrade(key, index)});
 
 	const imageHtml = document.createElement('img');
@@ -107,18 +141,32 @@ function createUpgradeItemHtml(key, index){
 	bonusHtml.classList.add('bonus');
 	bonusHtml.innerHTML = 'prod x' + value['multiplier'][index];
 	const costHtml = document.createElement('p');
-	costHtml.classList.add('cost');
+	costHtml.classList.add('cost', 'stone-icon-after');
 	costHtml.innerHTML = formatNumber(value['cost'][index]);
-	const rocksIconHtml = document.createElement('img');
-	rocksIconHtml.src = 'images/stoneIcon.png'
 	
 	upgradesItemTextHtml.appendChild(nameHtml);
 	upgradesItemValuesHtml.appendChild(bonusHtml);
-	costHtml.appendChild(rocksIconHtml);
 	upgradesItemValuesHtml.appendChild(costHtml);
 	
 	upgradesItemHtml.appendChild(imageHtml);
 	upgradesItemTextHtml.appendChild(upgradesItemValuesHtml);
 	upgradesItemHtml.appendChild(upgradesItemTextHtml);
 	return upgradesItemHtml;
+}
+
+function updateUpgradeItemHtml(key, index){
+	const value = upgrades[key];
+	const upgradesItemHtml = document.querySelector('#upgrade_' + key + '_' + index);
+	if(value['enabled'][index]){
+		upgradesItemHtml.classList.add('not-buyable', 'hidden')
+	}else if(shop[key]['amount'] >= value['require'][index]){
+		if(value['cost'][index] > rocks)
+			upgradesItemHtml.classList.add('not-buyable');
+			else
+			upgradesItemHtml.classList.remove('not-buyable');	
+		upgradesItemHtml.classList.remove('hidden');
+	}else{
+		upgradesItemHtml.classList.add('not-buyable');
+		upgradesItemHtml.classList.remove('hidden');
+	}
 }

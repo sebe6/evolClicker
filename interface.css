@@ -48,7 +48,7 @@ footer {
 }
 
 #tab-shop-content {
-	height: calc(100vh - (8.25vw - 2px) - 42px);
+	height: calc(100vh - (8.25vw - 2px));
 }
 
 #tab-upgrade-content {
@@ -56,9 +56,21 @@ footer {
 }
 
 #total-prod {
-	padding: 10px;
 	box-sizing: content-box;
-	border: 2px solid blue;
+	height: 60px;
+	width: 33vh;
+	max-width: 33vw;
+	top: calc(33vh - 60px);
+	position: fixed;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	font-size: 24px;
+}
+
+#total-prod::after {
+	content: 'par secondes';
+	font-size: 16px;
 }
 
 #tab-shop {
@@ -89,7 +101,7 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
 }
 
@@ -139,6 +151,10 @@ footer {
 
 .not-buyable {
 	filter: brightness(0.5);
+}
+
+.stone-icon-after::after {
+	content: url(images/stoneIcon.png);
 }
 
 .prevent-select {

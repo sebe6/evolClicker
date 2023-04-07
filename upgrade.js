@@ -1,5 +1,7 @@
 function buyUpgrade(key, index) {
-    if (rocks >= upgrades[key]['cost'][index]) {
+    if (!upgrades[key]['enabled'][index] 
+    && rocks >= upgrades[key]['cost'][index] 
+    && upgrades[key]['require'][index] <= shop[key]['amount']) {
         rocks -= upgrades[key]['cost'][index];
         upgrades[key]['enabled'][index] = true;
         refreshHTMLElement();

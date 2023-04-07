@@ -6,6 +6,10 @@
 </head>
 <body onload="load(); toggle_visibility('tabShop');">
 	<div id="section-left">
+		
+		<div id="total-prod">
+			<span></span>
+		</div>
 		<div id="click-area" onclick="clickEarning()">
 			<p id="click-area-text" class="prevent-select">
 				<span>rocks: <span id="rocks">0</span></span><br/>
@@ -22,9 +26,6 @@
 			<div id="tab-shop-content" class="hide-scrollbar">
 				
 			</div>
-			<div id="total-prod">
-				Total prod : <span></span>/s
-			</div>
 		</div>
 		<div id="tab-upgrade">
 			<div id="tab-upgrade-content" class="hide-scrollbar">
@@ -36,7 +37,7 @@
 			<button onclick="save()">Save</button>
 			<button onclick="reset()">Reset</button>
 			<br />
-			Beta 0.0.1
+			Beta 0.0.2
 			</footer>
 			<script type="text/javascript" src="main.js"></script>
 			<script type="text/javascript" src="refresh.js"></script>

@@ -42,7 +42,7 @@ function productionEarning(number, displayTotalProd = false) {
   if(number == 0) return;
   rocks = +(rocks + number).toFixed(1);
   if(displayTotalProd){
-    document.querySelector('#total-prod span').innerHTML = formatNumber(number);
+    document.querySelector('#total-prod').innerHTML = formatNumber(number);
   }
   refreshHTMLElement();
 }
