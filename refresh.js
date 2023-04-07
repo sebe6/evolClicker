@@ -9,9 +9,6 @@ function loadHTMLElement() {
 		const shopItemHtml = createShopItemHtml(key);
 		
 		tabShopContentHtml.appendChild(shopItemHtml);
-		// if(shop[key]['amount'] == 0){
-		// 	break;
-		// }
 	}
 
 	const tabUpgradesHtml = document.querySelector('#tab-upgrade-content');
@@ -20,12 +17,9 @@ function loadHTMLElement() {
 		let ownedAmount 
 		ownedAmount = shop[key]['amount']
 		for (let i = 0; i <= value['require'].length-1; i++) {
-			// if(value['enabled'][i]) continue;
-			// if(shop[key]['amount'] >= value['require'][i]){
-				const upgradeItemHtml = createUpgradeItemHtml(key, i);
-		
-				tabUpgradesHtml.appendChild(upgradeItemHtml);
-			// }
+			const upgradeItemHtml = createUpgradeItemHtml(key, i);
+	
+			tabUpgradesHtml.appendChild(upgradeItemHtml);
 		}
 	}
 }

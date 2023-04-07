@@ -30,7 +30,7 @@ function load() {
       current = Date.parse(current);
       diff = (current - tt)/1000;
       offEarn = totalProd()*diff/2;
-      console.log('a');
+      
       if(isNaN(offEarn)!==true){
         productionEarning(offEarn);
         if(diff>60){
