@@ -23,6 +23,20 @@
 			<img src="images/shop.png" id="tab-shop-btn" onclick="toggle_visibility('tabShop')"><img src="images/upgrade.png" id="tab-upgrade-btn" onclick="toggle_visibility('tabUpgrade')">
 		</div>
 		<div id="tab-shop">
+			<div id="shop-multiple-items">
+				<div id="shop-multiple-items-1" onclick="changeShopMultiplier(1)" class="checked">
+					1
+				</div>
+				<div id="shop-multiple-items-10" onclick="changeShopMultiplier(10)">
+					10
+				</div>
+				<div id="shop-multiple-items-100" onclick="changeShopMultiplier(100)">
+					100
+				</div>
+				<div id="shop-multiple-items-max" onclick="changeShopMultiplier('max')">
+					Max
+				</div>
+			</div>
 			<div id="tab-shop-content" class="hide-scrollbar">
 				
 			</div>
@@ -37,7 +51,7 @@
 			<button onclick="save()">Save</button>
 			<button onclick="reset()">Reset</button>
 			<br />
-			Beta 0.0.2
+			Beta 0.0.4
 			</footer>
 			<script type="text/javascript" src="main.js"></script>
 			<script type="text/javascript" src="refresh.js"></script>

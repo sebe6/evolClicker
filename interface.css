@@ -48,7 +48,7 @@ footer {
 }
 
 #tab-shop-content {
-	height: calc(100vh - (8.25vw - 2px));
+	height: calc(100vh - (8.25vw - 2px) - 36px);
 }
 
 #tab-upgrade-content {
@@ -109,6 +109,24 @@ footer {
 	margin-top: 10px;
 }
 
+#shop-multiple-items {
+	display: flex;
+	justify-content: space-evenly;
+	border: 2px solid blue;
+}
+
+#shop-multiple-items > div {
+	border: 2px solid blue;
+	width: 100%;
+	text-align: center;
+	padding: 5px;
+	background-color: white;
+}
+
+#shop-multiple-items > div:not(.checked) {
+  filter: brightness(0.5);
+}
+
 .shopItem, .upgradeItem {
 	border: 1px solid grey;
 	max-height: 100px;
@@ -153,6 +171,10 @@ footer {
 	filter: brightness(0.5);
 }
 
+/* #shop-multiple-items input[type="checkbox"] {
+	display: none;
+} */
+
 .stone-icon-after::after {
 	content: url(images/stoneIcon.png);
 }
@@ -170,4 +192,23 @@ footer {
 .hide-scrollbar {
 	-ms-overflow-style: none;  /* IE and Edge */
 	scrollbar-width: none;  /* Firefox */
+}
+
+.hidden {
+	display: none;
+}
+
+#click-area:active{
+	transform: scale(1);
+	animation: pulse 2s;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+	}
+
+	100% {
+		transform: scale(1);
+	}
 }

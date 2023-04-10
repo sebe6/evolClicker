@@ -84,6 +84,7 @@ function loadDefault(){
   rocks = 0;
   clickCount = 0;
   language = 'En';
+  shopMultiplier = 1;
   shop = {
     'rocksCollector': {
       'nameEn': 'Rock Collector',
@@ -208,7 +209,7 @@ function loadDefault(){
     'stoneCutter': {
       'nameEn': ['Wooden stone cutter','Stone stone cutter','Coal stone cutter','Copper stone cutter','Iron stone cutter','Silver stone cutter','Golden stone cutter','Diamond stone cutter'],
       'nameFr': ['Wooden stone cutter','Stone stone cutter','Coal stone cutter','Copper stone cutter','Iron stone cutter','Silver stone cutter','Golden stone cutter','Diamond stone cutter'],
-      'cost': [210e3,40e6,140e9,350e15,350e15,350e15,350e15,350e15],
+      'cost': [210e3,600e6,140e9,350e15,350e15,350e15,350e15,350e15],
       'multiplier': [2,2,2,2,2,2,2,2],
       'enabled': [false,false,false,false,false,false,false,false],
       'require': [10,25,50,100,150,200,250,500],

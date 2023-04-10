@@ -90,23 +90,25 @@ function createShopItemHtml(key){
 
 function updateShopItemHtml(key){
 	const value = shop[key];
-	const costNextItem = getCostNextItem(key);
+	const costNextItems = getCostNextItem(key);
 	let shopItemHtml = document.querySelector('#shop_' + key);
 	
-	if(costNextItem > rocks)
+	if(costNextItems[0] <= rocks){
+		shopItemHtml.classList.remove('not-buyable', 'hidden');
+	}else{
 		shopItemHtml.classList.add('not-buyable');
-	else
-		shopItemHtml.classList.remove('not-buyable');
-	
-	if(shop[key]['amount'] == 0)
-		shopItemHtml.classList.remove('hidden')
-	
+		if(shop[key]['amount'] >= 1 || rocks >= costNextItems[0]*0.75)
+			shopItemHtml.classList.remove('hidden')
+		else
+			shopItemHtml.classList.add('hidden')
+	}
+
 	let shopItemValueHtml = shopItemHtml.querySelector('.shopItemValue')
 	shopItemValueHtml.querySelector('.amount').innerHTML = 'Owned : ' + (value['amount'] || 0);
 	var prodHtml = formatNumber((value['production'] * getTotalMultiplier(key) * getTotalSpecial(key)) * value['amount']) + '/s';
 	prodHtml += ' (' + formatNumber((value['production']) * getTotalMultiplier(key) * getTotalSpecial(key)) + '/s/u)';
 	shopItemValueHtml.querySelector('.prod').innerHTML = prodHtml;
-	shopItemValueHtml.querySelector('.cost').innerHTML = formatNumber(costNextItem);
+	shopItemValueHtml.querySelector('.cost').innerHTML = (shopMultiplier == 'max' ? '(' + costNextItems[1] + ') ' : '') + formatNumber(costNextItems[0]);
 }
 
 function createUpgradeItemHtml(key, index){
@@ -156,11 +158,10 @@ function updateUpgradeItemHtml(key, index){
 	}else if(shop[key]['amount'] >= value['require'][index]){
 		if(value['cost'][index] > rocks)
 			upgradesItemHtml.classList.add('not-buyable');
-			else
+		else
 			upgradesItemHtml.classList.remove('not-buyable');	
 		upgradesItemHtml.classList.remove('hidden');
 	}else{
-		upgradesItemHtml.classList.add('not-buyable');
-		upgradesItemHtml.classList.remove('hidden');
+		upgradesItemHtml.classList.add('not-buyable', 'hidden');
 	}
 }
